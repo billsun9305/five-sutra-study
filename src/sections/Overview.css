@@ -1,0 +1,91 @@
+/* ============================================================
+   Overview — 五階段（DESIGN.md §8.3）
+   手機：垂直時間軸（2px 豎線 + 10px 硃砂圓點）
+   桌面 ≥1024px：5 等分橫條
+   ============================================================ */
+
+.overview__stages {
+  display: grid;
+  gap: var(--s-6);
+  position: relative;
+  padding-left: var(--s-6);
+}
+
+/* 手機時間軸豎線 */
+.overview__stages::before {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: var(--s-4);
+  bottom: var(--s-4);
+  width: 2px;
+  background: var(--line);
+}
+
+.overview__stage-wrap {
+  position: relative;
+}
+
+.overview__stage {
+  background: var(--card);
+  border: 1px solid var(--line);
+  box-shadow: var(--sh-card);
+  padding: 22px 16px;
+}
+
+/* 時間軸圓點 */
+.overview__dot {
+  position: absolute;
+  left: calc(var(--s-6) * -1 - 6px);
+  top: 32px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--cinnabar);
+  box-shadow: 0 0 0 4px var(--paper);
+}
+
+.overview__number {
+  margin: 0 0 var(--s-2);
+  font-family: var(--font-mono);
+  font-size: var(--fs-tiny);
+  color: var(--cinnabar);
+}
+
+.overview__name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--ink);
+}
+
+.overview__note {
+  margin: var(--s-1) 0 0;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+@media (min-width: 1024px) {
+  .overview__stages {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    background: var(--line-soft);
+    padding-left: 0;
+    border: 1px solid var(--line);
+  }
+
+  .overview__stages::before {
+    content: none;
+  }
+
+  .overview__stage {
+    border: none;
+    box-shadow: none;
+    height: 100%;
+  }
+
+  .overview__dot {
+    display: none;
+  }
+}

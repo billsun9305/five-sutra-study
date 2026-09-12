@@ -1,0 +1,94 @@
+/* ============================================================
+   MaterialsPack（DESIGN.md §8.4）
+   ============================================================ */
+
+/* 硃砂提醒條 */
+.materials__note {
+  margin: 0 0 var(--s-8);
+  padding: 14px 16px;
+  background: var(--cinnabar-wash);
+  border-left: 4px solid var(--cinnabar);
+  font-size: 0.9rem;
+  color: var(--ink-soft); /* DESIGN 註 #5d4d46，tokens 無此色，取最近的次墨 */
+}
+.materials__note p {
+  margin: 0;
+}
+
+/* 單元分組 */
+.materials__units {
+  display: grid;
+  gap: var(--s-8);
+}
+
+.materials__unit {
+  padding-top: var(--s-6);
+  border-top: 1px solid var(--line);
+}
+
+.materials__unit-no {
+  margin: 0 0 var(--s-1);
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--cinnabar);
+}
+
+.materials__unit-title {
+  margin: 0 0 var(--s-4);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.35rem;
+  color: var(--ink);
+}
+
+.materials__videos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+/* 影片卡：玉洗底 + 左玉線，尾綴 ↗ */
+.video-card {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  padding: 8px 12px;
+  background: var(--jade-wash);
+  border-left: 3px solid var(--jade);
+  border-radius: var(--r-chip);
+  font-size: 0.85rem;
+  color: var(--jade-dark);
+  text-decoration: none;
+  transition: box-shadow var(--dur-med) var(--ease-out);
+}
+.video-card:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  box-shadow: var(--sh-lift);
+}
+
+.video-card__arrow {
+  font-size: 0.9em;
+}
+
+/* 補充讀物：深色收尾卡 */
+.materials__extra {
+  margin-top: var(--s-10);
+  padding: 20px 22px;
+  background: var(--jade-dark);
+  color: var(--on-dark);
+}
+
+.materials__extra-title {
+  margin: 0 0 var(--s-2);
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--on-dark);
+}
+
+.materials__extra-text {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--on-dark-dim);
+  line-height: var(--lh-body);
+}

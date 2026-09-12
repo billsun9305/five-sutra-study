@@ -1,0 +1,89 @@
+/* ============================================================
+   五部經典研習大綱 — Base
+   只做全域基底：不放元件樣式，不放版面
+   ============================================================ */
+
+/* Fonts are loaded via <link> in index.html; no @import here to avoid blocking CSS. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  letter-spacing: 0.01em;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* 紙紋：全站底層，pointer-events 關閉 */
+.paper-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: var(--grain-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+}
+
+/* ---------- 文字選取：硃砂 ---------- */
+::selection {
+  background: var(--cinnabar);
+  color: var(--on-dark);
+}
+
+/* ---------- 連結 ---------- */
+a {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+/* ---------- 鍵盤焦點：硃砂外框 ---------- */
+:focus {
+  outline: none;
+}
+:focus-visible {
+  outline: 2px solid var(--cinnabar);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ---------- 錨點偏移（避開 sticky 頂欄） ---------- */
+section[id],
+[id][data-anchor] {
+  scroll-margin-top: var(--scroll-mt);
+}
+
+/* ---------- 圖片 ---------- */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* ---------- 減少動態：全面尊重 ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

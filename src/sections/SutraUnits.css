@@ -1,0 +1,386 @@
+/* ============================================================
+   SutraUnits — 五個經單元（DESIGN.md §8.6）
+   只引用 tokens，不寫死色碼（--clay-warm 例外：DESIGN §8.6
+   指定的暖陶 #ece3d8，tokens 中無對應 token）
+   ============================================================ */
+
+.unit-section {
+  /* 暖陶（DESIGN §8.6 練習雙卡 B 卡指定色） */
+  --clay-warm: #ece3d8;
+}
+
+/* ---------- 1. 單元頭：印章 ＋ meta ＋ 經名 ＋ 導言 ---------- */
+.unit-head {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s-4);
+  margin-top: var(--s-8);
+  align-items: start;
+}
+
+/* .seal 取自 Hero.css（靜態，不加 hover 動畫） */
+.unit-head__seal {
+  flex-shrink: 0;
+}
+
+.unit-meta {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  margin: 0 0 var(--s-3);
+  padding: 0;
+}
+
+.unit-meta__tag {
+  font-size: 0.75rem;
+  color: var(--jade-dark);
+  border: 1px solid var(--jade-line);
+  background: var(--jade-wash);
+  padding: 3px 10px;
+  border-radius: var(--r-chip);
+}
+
+.unit-head__sutra {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--ink-soft);
+  margin: 0 0 var(--s-3);
+}
+
+.unit-head__thesis {
+  font-size: 1.02rem;
+  line-height: var(--lh-body);
+  color: var(--ink-soft);
+  max-width: 52em;
+  text-align: justify;
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .unit-head {
+    grid-template-columns: 96px 1fr;
+    gap: var(--s-6);
+  }
+}
+
+/* ---------- 度亡經 source-note（§8.4 樣式） ---------- */
+.unit-source-note {
+  background: var(--jade-wash);
+  padding: 12px 18px;
+  margin-top: var(--s-8);
+  font-size: 0.82rem;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.unit-source-note p {
+  margin: 0;
+}
+
+/* ---------- 2. 引文塊（深底，只做淡入） ---------- */
+.unit-epigraph {
+  background: var(--jade-dark);
+  color: var(--on-dark);
+  padding: 26px 28px;
+  margin: var(--s-8) 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.unit-epigraph__quote {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--fs-quote);
+  line-height: 1.85;
+}
+
+.unit-epigraph__mark {
+  position: absolute;
+  top: -6px;
+  right: 12px;
+  font-family: var(--font-display);
+  font-size: 5rem;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.12);
+  pointer-events: none;
+}
+
+.unit-epigraph__quote footer {
+  margin-top: 12px;
+}
+
+.unit-epigraph__quote cite {
+  font-family: var(--font-body);
+  font-style: normal;
+  font-size: 0.75rem;
+  color: var(--on-dark-dim);
+}
+
+/* ---------- 3. QuotePair：原文 / 白話 配對卡（§8.5） ---------- */
+.quote-list {
+  display: grid;
+  gap: var(--s-4);
+  margin-top: var(--s-4);
+}
+
+.quote-pair {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--jade);
+  border-radius: var(--r-card);
+  box-shadow: var(--sh-card);
+  padding: 20px 22px;
+}
+
+.quote-pair__block {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s-2);
+}
+
+.quote-pair__label {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+}
+
+.quote-pair__label--original {
+  color: var(--cinnabar);
+}
+
+.quote-pair__label--vernacular {
+  color: var(--jade);
+}
+
+.quote-pair__original {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.9;
+  color: var(--ink);
+  margin: 0;
+}
+
+.quote-pair__baihua {
+  font-size: 0.95rem;
+  line-height: 1.85;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+.quote-pair__hairline {
+  height: 1px;
+  background: var(--line-soft);
+  margin: var(--s-4) 0;
+}
+
+/* 深入理解 inset */
+.quote-pair__insights {
+  background: var(--paper-deep);
+  padding: 14px 16px;
+  margin-top: var(--s-4);
+}
+
+.quote-pair__insights-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--cinnabar);
+  margin: 0 0 var(--s-2);
+}
+
+.quote-pair__insight {
+  font-size: 0.88rem;
+  line-height: 1.75;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+.quote-pair__insight + .quote-pair__insight {
+  margin-top: 8px;
+}
+
+.quote-pair__insight strong {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--jade-dark);
+}
+
+/* 桌面：64px label 軌 */
+@media (min-width: 768px) {
+  .quote-pair__block {
+    grid-template-columns: 64px 1fr;
+    gap: var(--s-4);
+  }
+
+  .quote-pair__label {
+    padding-top: 3px;
+  }
+}
+
+/* ---------- 4. 本週實修 callout（§8.4） ---------- */
+.unit-practice-weekly {
+  margin-top: var(--s-8);
+  padding: 16px 18px;
+  background: var(--paper-deep);
+  border-top: 3px solid var(--jade);
+}
+
+.unit-practice-weekly p {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: var(--lh-body);
+  color: var(--ink-soft);
+}
+
+.unit-practice-weekly__lead {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--jade-dark);
+}
+
+/* ---------- 5. 練習雙卡（§8.6 #4） ---------- */
+.unit-practice-duo {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-top: var(--s-4);
+}
+
+.practice-duo-card {
+  padding: 22px 24px;
+  border-radius: var(--r-card);
+}
+
+.practice-duo-card--primary {
+  background: var(--jade-wash);
+}
+
+.practice-duo-card--secondary {
+  background: var(--clay-warm);
+}
+
+.practice-duo-card__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--ink);
+  margin: 0 0 var(--s-2);
+}
+
+.practice-duo-card__text {
+  font-size: 0.9rem;
+  line-height: var(--lh-body);
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .unit-practice-duo {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ---------- 6. 從哪些角度切入 ---------- */
+.unit-angles {
+  margin-top: var(--s-8);
+}
+
+.unit-angles__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--jade-dark);
+  margin: 0 0 var(--s-4);
+}
+
+.unit-angles__list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+}
+
+.unit-angles__chip {
+  border: 1px solid var(--line);
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  border-radius: var(--r-chip);
+  transition: border-color 180ms var(--ease-out);
+}
+
+.unit-angles__chip:hover {
+  border-color: var(--jade);
+}
+
+/* ---------- 7. 延伸閱讀＋資料線索（§8.6 #5 / #6） ---------- */
+.unit-readings {
+  margin-top: var(--s-8);
+  border-top: 1px dashed var(--line-dark);
+  padding-top: 18px;
+}
+
+.unit-readings__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s-6);
+}
+
+.unit-readings__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--ink);
+  margin: 0 0 var(--s-2);
+}
+
+.unit-readings__list {
+  margin: 0;
+  padding-left: 1.2em;
+  list-style: disc;
+  font-size: 0.87rem;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.unit-readings__list li + li {
+  margin-top: 6px;
+}
+
+.unit-sources {
+  font-size: 0.78rem;
+  line-height: 1.8;
+  color: var(--faint);
+  margin-top: 18px;
+}
+
+.unit-sources a {
+  color: var(--jade-dark);
+  text-underline-offset: 3px;
+  transition: color 180ms var(--ease-out);
+}
+
+.unit-sources a:hover {
+  color: var(--cinnabar);
+}
+
+@media (min-width: 768px) {
+  .unit-readings__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* 手機：卡片內 padding 縮小（§3） */
+@media (max-width: 767px) {
+  .quote-pair {
+    padding: 18px 16px;
+  }
+}

@@ -1,0 +1,254 @@
+/* ============================================================
+   Closing — 收尾三節（§8.7 互讀 / §8.8 節奏 / §8.9 閱讀索引）
+   只引用 tokens；不寫死色碼字級。
+   ============================================================ */
+
+/* ---------------- CrossReading（compare） ---------------- */
+
+.cross-reading__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s-4);
+  margin-top: var(--s-8);
+}
+
+@media (min-width: 768px) {
+  .cross-reading__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.cross-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  box-shadow: var(--sh-card);
+  padding: var(--s-6) var(--s-6);
+  height: 100%;
+  transition:
+    transform var(--dur-med) var(--ease-out),
+    box-shadow var(--dur-med) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .cross-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--sh-lift);
+  }
+}
+
+.cross-card__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  line-height: 1.35;
+  color: var(--ink);
+  margin: 0 0 var(--s-2);
+}
+
+.cross-card__text {
+  font-size: 0.9rem;
+  line-height: var(--lh-body);
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+/* 深底收尾卡：全寬，第二處深色塊（§8.7）——不做 hover 位移 */
+.cross-reading__closing {
+  margin-top: var(--s-4);
+}
+
+.cross-card--dark {
+  background: var(--jade-dark);
+  border-color: var(--jade-dark);
+  box-shadow: none;
+  padding: var(--s-6) var(--s-8);
+}
+
+.cross-card--dark .cross-card__title {
+  color: var(--on-dark);
+  font-size: 1.15rem;
+}
+
+.cross-card--dark .cross-card__text {
+  color: var(--on-dark-dim);
+  font-size: 0.95rem;
+  line-height: 1.85;
+}
+
+@media (hover: hover) {
+  .cross-card--dark:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+/* ---------------- Rhythm（plan） ---------------- */
+
+.rhythm__steps {
+  margin: var(--s-8) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rhythm__row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s-1);
+  padding: var(--s-6) 0;
+  border-top: 1px solid var(--line);
+}
+
+@media (min-width: 768px) {
+  .rhythm__row {
+    grid-template-columns: 88px 1fr;
+    gap: var(--s-4);
+  }
+}
+
+.rhythm__no {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  color: var(--cinnabar);
+  padding-top: var(--s-1);
+}
+
+.rhythm__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.1rem;
+  line-height: 1.35;
+  color: var(--ink);
+  margin: 0;
+}
+
+.rhythm__text {
+  font-size: 0.9rem;
+  line-height: var(--lh-body);
+  color: var(--muted);
+  margin: var(--s-2) 0 0;
+}
+
+/* 研讀提醒（§8.8）：全文逐字呈現 */
+.honesty-note-wrap {
+  margin-top: var(--s-6);
+}
+
+.honesty-note {
+  background: var(--cinnabar-wash);
+  border: 1px solid var(--cinnabar-line);
+  border-radius: var(--r-card);
+  padding: var(--s-6) var(--s-6);
+}
+
+.honesty-note__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  line-height: 1.35;
+  color: var(--cinnabar-deep);
+  margin: 0 0 var(--s-2);
+}
+
+.honesty-note__text {
+  font-size: 0.86rem;
+  line-height: 1.8;
+  color: var(--reminder-ink);
+  margin: 0;
+}
+
+/* 回到開頭（§8.8） */
+.back-to-top {
+  display: inline-block;
+  margin-top: var(--s-5);
+  color: var(--jade-dark);
+  font-size: 0.9rem;
+  text-decoration: none;
+  text-underline-offset: 3px;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.back-to-top:hover {
+  color: var(--cinnabar);
+  text-decoration: underline;
+}
+
+/* ---------------- ReadingIndex（reading-index） ---------------- */
+
+.reading-index__units {
+  margin-top: var(--s-8);
+}
+
+.reading-index__unit {
+  border-top: 1px solid var(--line);
+  padding: var(--s-6) 0;
+}
+
+.reading-index__head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-3);
+  margin-bottom: var(--s-4);
+}
+
+.reading-index__no {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--cinnabar);
+}
+
+.reading-index__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  line-height: 1.35;
+  color: var(--ink);
+  margin: 0;
+}
+
+.reading-index__cols {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s-5);
+}
+
+@media (min-width: 768px) {
+  .reading-index__cols {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: var(--s-6);
+  }
+}
+
+.reading-index__col-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--jade-dark);
+  margin: 0 0 var(--s-2);
+}
+
+.reading-index__list {
+  margin: 0;
+  padding-left: 1.2em;
+  font-size: 0.87rem;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.reading-index__list li + li {
+  margin-top: var(--s-1);
+}
+
+.reading-index__link {
+  color: var(--jade-dark);
+  text-decoration: none;
+  text-underline-offset: 3px;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.reading-index__link:hover {
+  color: var(--cinnabar);
+  text-decoration: underline;
+}

@@ -1,0 +1,35 @@
+/* ============================================================
+   五部經典研習大綱 — App 層級共用樣式
+   只放跨元件的版面工具類，元件樣式各自獨立
+   ============================================================ */
+
+/* 置中容器：min(--maxw, 100% - gutter*2) */
+.container {
+  width: min(var(--maxw), calc(100% - var(--gutter) * 2));
+  margin-inline: auto;
+}
+
+/* 標準章節：上下留白 + 頂部髮絲線分隔（§3） */
+.section {
+  padding: var(--section-pad-y) 0;
+  border-top: 1px solid var(--line);
+}
+
+/* 無障礙：跳過導覽連結（預設隱藏，聚焦時浮現） */
+.skip-link {
+  position: absolute;
+  top: calc(var(--nav-h) + var(--s-2));
+  left: var(--s-4);
+  z-index: 100;
+  padding: var(--s-2) var(--s-4);
+  background: var(--card);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: var(--r-chip);
+  font-size: var(--fs-small);
+  transform: translateY(-300%);
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+.skip-link:focus-visible {
+  transform: translateY(0);
+}

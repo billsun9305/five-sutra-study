@@ -1,0 +1,45 @@
+/* ============================================================
+   SectionHeading — 眉題（硃砂）+ 章節大標 + 引言
+   ============================================================ */
+
+.section-heading {
+  margin-bottom: var(--s-8);
+}
+
+.section-heading__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  margin: 0 0 var(--s-3);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: var(--ls-eyebrow);
+  color: var(--cinnabar);
+}
+
+/* 眉題前綴：24px × 2px 硃砂短線 */
+.section-heading__rule {
+  display: inline-block;
+  width: 24px;
+  height: 2px;
+  background: var(--cinnabar);
+  flex: none;
+}
+
+.section-heading__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-section);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-heading);
+  color: var(--ink);
+}
+
+.section-heading__intro {
+  margin: var(--s-4) 0 0;
+  max-width: 60em;
+  color: var(--muted);
+  line-height: var(--lh-body);
+}

@@ -1,0 +1,52 @@
+/* ============================================================
+   Footer（DESIGN.md §8.10）
+   ============================================================ */
+
+.footer {
+  border-top: 1px solid var(--line);
+  padding: 36px 0 56px;
+  color: var(--muted);
+}
+
+.footer__inner {
+  max-width: 60em;
+  text-align: center;
+}
+
+.footer__mainline {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--fs-body);
+  color: var(--ink-soft);
+}
+
+.footer__honesty {
+  margin: var(--s-4) 0 0;
+  font-size: 0.78rem;
+  color: var(--faint);
+  line-height: var(--lh-body);
+}
+
+.footer__actions {
+  margin: var(--s-6) 0 0;
+}
+
+.footer__back {
+  color: var(--jade-dark);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+.footer__back:hover {
+  color: var(--cinnabar-deep);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.footer__credit {
+  margin: var(--s-6) 0 0;
+  font-size: var(--fs-tiny);
+  color: var(--faint);
+}

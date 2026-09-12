@@ -1,0 +1,135 @@
+/* ============================================================
+   StickyNav — 頂部導覽（DESIGN.md §8.1）
+   ============================================================ */
+
+.sticky-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  /* Safari-safe fallback：純 rgba 紙底 + blur */
+  background: rgba(244, 241, 232, 0.92);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+  height: var(--nav-h);
+}
+
+/* 支援 color-mix 的瀏覽器：改用規格的 88% 紙底 */
+@supports (background: color-mix(in srgb, red 88%, transparent)) {
+  .sticky-nav {
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+  }
+}
+
+.sticky-nav__inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--s-6);
+}
+
+/* ---------- 品牌 ---------- */
+.sticky-nav__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  flex: none;
+  text-decoration: none;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  white-space: nowrap;
+}
+
+/* 硃砂小印點：8px 方塊，rotate(-4deg) */
+.sticky-nav__seal-dot {
+  width: 8px;
+  height: 8px;
+  flex: none;
+  background: var(--cinnabar);
+  transform: rotate(-4deg);
+}
+
+.sticky-nav__brand-full { display: none; }
+.sticky-nav__brand-short { display: inline; }
+
+/* ---------- 連結列：手機橫向捲動 ---------- */
+.sticky-nav__links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+.sticky-nav__links::-webkit-scrollbar {
+  display: none; /* WebKit */
+}
+
+.sticky-nav__link {
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--s-1);
+  text-decoration: none;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--muted);
+  padding: var(--s-2) 0;
+  transition: color 200ms var(--ease-out);
+}
+
+.sticky-nav__no {
+  font-family: var(--font-mono);
+  font-size: var(--fs-tiny);
+  color: var(--faint);
+}
+
+.sticky-nav__link:hover {
+  color: var(--jade-dark);
+}
+
+.sticky-nav__link.is-active {
+  color: var(--cinnabar);
+  font-weight: 600;
+}
+.sticky-nav__link.is-active .sticky-nav__no {
+  color: var(--cinnabar);
+}
+/* active 底部 2px 硃砂線 */
+.sticky-nav__link.is-active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--cinnabar);
+}
+
+/* ---------- 進度髮絲線：2px 硃砂，貼頂欄底部 ---------- */
+.sticky-nav__progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--cinnabar);
+  transform-origin: 0 50%;
+}
+
+/* ---------- 桌面 ≥1024px：完整品牌名、全列不捲動 ---------- */
+@media (min-width: 1024px) {
+  .sticky-nav__brand-full { display: inline; }
+  .sticky-nav__brand-short { display: none; }
+
+  .sticky-nav__links {
+    overflow-x: visible;
+    gap: var(--s-5);
+  }
+}

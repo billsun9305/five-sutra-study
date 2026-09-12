@@ -1,0 +1,171 @@
+/* ============================================================
+   Hero（DESIGN.md §8.2）— 首屏雙欄 + 建議路徑面板
+   ============================================================ */
+
+.hero {
+  position: relative;
+  padding: clamp(3rem, 8vw, 5.5rem) 0 3rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.hero__grid {
+  display: grid;
+  gap: var(--s-8);
+}
+
+.hero__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  margin: 0 0 var(--s-4);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: var(--ls-eyebrow);
+  color: var(--cinnabar);
+}
+
+.hero__rule {
+  display: inline-block;
+  width: 24px;
+  height: 2px;
+  background: var(--cinnabar);
+  flex: none;
+}
+
+.hero__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: var(--fs-hero);
+  line-height: var(--lh-hero);
+  letter-spacing: var(--ls-heading);
+  color: var(--ink);
+  max-width: 9em;
+}
+
+.hero__lede {
+  margin: var(--s-6) 0 0;
+  max-width: 36em;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--fs-lede);
+  line-height: var(--lh-body);
+  color: var(--ink-soft);
+  text-align: justify;
+}
+
+/* ---------- 印章：靜態，不做 hover 動畫 ---------- */
+.hero__seal-row {
+  margin-top: var(--s-8);
+}
+
+.seal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  padding: 8px;
+  border: 2px solid var(--cinnabar);
+  color: var(--cinnabar);
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 1.05rem;
+  line-height: 1.15;
+  text-align: center;
+  transform: rotate(-2deg);
+  box-shadow: var(--sh-seal);
+  user-select: none;
+}
+
+/* ---------- 建議路徑面板 ---------- */
+.hero__route {
+  border-top: 4px solid var(--jade);
+  padding-top: var(--s-4);
+  align-self: end;
+}
+
+.hero__route-title {
+  margin: 0 0 var(--s-4);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--ink);
+}
+
+.hero__route-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.hero__route-item {
+  display: grid;
+  grid-template-columns: 32px 1fr auto;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-2) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.hero__route-item:last-child {
+  border-bottom: none;
+}
+
+.hero__route-no {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--cinnabar);
+}
+
+.hero__route-sutra {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.hero__route-note {
+  font-size: 0.84rem;
+  color: var(--muted);
+}
+
+/* ---------- scroll cue ---------- */
+.hero__cue {
+  position: absolute;
+  left: 50%;
+  bottom: var(--s-4);
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-1);
+  color: var(--faint);
+  font-size: var(--fs-tiny);
+  letter-spacing: 0.2em;
+}
+
+.hero__cue-arrow {
+  font-size: 1rem;
+  animation: hero-cue-drop 2.4s var(--ease-out) infinite;
+}
+
+@keyframes hero-cue-drop {
+  0%, 100% { transform: translateY(0); opacity: 0.5; }
+  50% { transform: translateY(6px); opacity: 1; }
+}
+
+@media (min-width: 1024px) {
+  .hero__grid {
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 4rem;
+    align-items: end;
+  }
+
+  .seal {
+    width: 84px;
+    height: 84px;
+    padding: 10px;
+    font-size: 1.2rem;
+  }
+}
