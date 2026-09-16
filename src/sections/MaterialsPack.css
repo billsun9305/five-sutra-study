@@ -1,5 +1,6 @@
 /* ============================================================
-   MaterialsPack（DESIGN.md §8.4）
+   MaterialsPack — 研習影片（手風琴）
+   收合：單元主題＋大影片播放卡；展開：導讀、關鍵經文、本週實修
    ============================================================ */
 
 /* 硃砂提醒條 */
@@ -9,7 +10,7 @@
   background: var(--cinnabar-wash);
   border-left: 4px solid var(--cinnabar);
   font-size: 0.9rem;
-  color: var(--ink-soft); /* DESIGN 註 #5d4d46，tokens 無此色，取最近的次墨 */
+  color: var(--ink-soft);
 }
 .materials__note p {
   margin: 0;
@@ -26,49 +27,180 @@
   border-top: 1px solid var(--line);
 }
 
+/* 手風琴標頭：按鈕重置＋左右分佈 */
+.materials__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-4);
+  width: 100%;
+  padding: 0;
+  margin: 0 0 var(--s-4);
+  background: none;
+  border: none;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  color: inherit;
+}
+.materials__head-text {
+  display: grid;
+  gap: var(--s-1);
+}
 .materials__unit-no {
-  margin: 0 0 var(--s-1);
   font-family: var(--font-mono);
   font-size: 0.76rem;
   color: var(--cinnabar);
 }
-
 .materials__unit-title {
-  margin: 0 0 var(--s-4);
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 1.35rem;
   color: var(--ink);
 }
-
-.materials__videos {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--s-2);
+.materials__chevron {
+  flex: none;
+  font-size: 1.25rem;
+  line-height: 1;
+  color: var(--cinnabar);
+  transition: transform var(--dur-med) var(--ease-out);
+}
+.materials__head[aria-expanded='true'] .materials__chevron {
+  transform: rotate(45deg);
 }
 
-/* 影片卡：玉洗底 + 左玉線，尾綴 ↗ */
+/* 影片卡：大播放卡，全寬 */
+.materials__videos {
+  display: grid;
+  gap: var(--s-3);
+}
 .video-card {
-  display: inline-flex;
+  text-decoration: none;
+  transition: box-shadow var(--dur-med) var(--ease-out), transform var(--dur-med) var(--ease-out);
+}
+.video-card--big {
+  display: flex;
   align-items: center;
-  gap: var(--s-2);
-  padding: 8px 12px;
+  gap: 14px;
+  width: 100%;
+  padding: 14px 16px;
   background: var(--jade-wash);
+  border-left: 4px solid var(--jade);
+  border-radius: var(--r-card);
+}
+.video-card--big:hover {
+  box-shadow: var(--sh-lift);
+  transform: translateY(-1px);
+}
+.video-card__play {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--cinnabar);
+  color: #fff;
+  font-size: 0.95rem;
+  padding-left: 3px; /* 視覺置中 ▶ */
+}
+.video-card__body {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+.video-card__index {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--jade-dark);
+  letter-spacing: 0.08em;
+}
+.video-card__label {
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+.video-card__meta {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+}
+.video-card__arrow {
+  margin-left: auto;
+  flex: none;
+  font-size: 1rem;
+  color: var(--jade-dark);
+}
+
+/* 展開區：grid-rows 動畫＋visibility 保證收合時不可聚焦 */
+.materials__detail {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--dur-med) var(--ease-out);
+}
+.materials__detail-inner {
+  overflow: hidden;
+  visibility: hidden;
+  opacity: 0;
+  transition:
+    opacity var(--dur-med) var(--ease-out),
+    visibility 0s linear var(--dur-med);
+}
+.materials__detail.is-open {
+  grid-template-rows: 1fr;
+}
+.materials__detail.is-open .materials__detail-inner {
+  visibility: visible;
+  opacity: 1;
+  transition:
+    opacity var(--dur-med) var(--ease-out) 0.08s,
+    visibility 0s;
+}
+.materials__thesis {
+  margin: var(--s-5) 0 var(--s-4);
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: var(--ink-soft);
+}
+.materials__epigraph {
+  margin: 0 0 var(--s-4);
+  padding: 14px 16px;
   border-left: 3px solid var(--jade);
-  border-radius: var(--r-chip);
-  font-size: 0.85rem;
+  background: var(--paper-deep);
+  border-radius: 0 var(--r-card) var(--r-card) 0;
+}
+.materials__epigraph p {
+  margin: 0 0 6px;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--ink);
+}
+.materials__epigraph cite {
+  font-style: normal;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+.materials__practice {
+  margin: 0 0 var(--s-4);
+  font-size: 0.92rem;
+  line-height: 1.75;
+  color: var(--ink-soft);
+}
+.materials__practice strong {
+  color: var(--cinnabar);
+}
+.materials__more {
+  display: inline-block;
+  font-size: 0.9rem;
+  font-weight: 600;
   color: var(--jade-dark);
   text-decoration: none;
-  transition: box-shadow var(--dur-med) var(--ease-out);
+  border-bottom: 1px solid var(--jade);
+  padding-bottom: 2px;
 }
-.video-card:hover {
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  box-shadow: var(--sh-lift);
-}
-
-.video-card__arrow {
-  font-size: 0.9em;
+.materials__more:hover {
+  color: var(--cinnabar);
+  border-color: var(--cinnabar);
 }
 
 /* 補充讀物：深色收尾卡 */
@@ -77,18 +209,16 @@
   padding: 20px 22px;
   background: var(--jade-dark);
   color: var(--on-dark);
+  border-radius: var(--r-card);
 }
-
 .materials__extra-title {
-  margin: 0 0 var(--s-2);
+  margin: 0 0 8px;
   font-family: var(--font-display);
-  font-weight: 700;
-  color: var(--on-dark);
+  font-size: 1.05rem;
 }
-
 .materials__extra-text {
   margin: 0;
-  font-size: 0.9rem;
-  color: var(--on-dark-dim);
-  line-height: var(--lh-body);
+  font-size: 0.92rem;
+  line-height: 1.75;
+  opacity: 0.92;
 }

@@ -95,7 +95,7 @@ export const siteMeta: SiteMeta = {
   ],
   nav: [
     { id: 'overview', no: '00', label: '總覽' },
-    { id: 'materials', no: '＋', label: '研習素材包' },
+    { id: 'materials', no: '＋', label: '研習影片' },
     { id: 'arrow', no: '01', label: '箭經（兩支箭）' },
     { id: 'heart', no: '02', label: '心經' },
     { id: 'diamond', no: '03', label: '金剛經' },
@@ -141,7 +141,7 @@ export const overview: Overview = {
 };
 
 /* ------------------------------------------------------------------ */
-/* materialsPack：研習素材包（6 支 Facebook 短片）                       */
+/* materialsPack：研習影片（6 支 Facebook 短片，手風琴呈現）              */
 /* ------------------------------------------------------------------ */
 
 export interface ReelEntry {
@@ -169,7 +169,7 @@ export interface MaterialsPack {
 }
 
 export const materialsPack: MaterialsPack = {
-  title: '研習素材包',
+  title: '研習影片',
   intro: '把每一輪研習需要的短片主題、原文與一週練習放在一起。先看影片，再讀原文，最後把一個觀察帶回生活。',
   note: '六支影片以匿名、中性標題呈現。點擊後會前往 Facebook；部分觀看情況可能需要登入。',
   reels: [
