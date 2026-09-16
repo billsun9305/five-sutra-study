@@ -48,12 +48,18 @@ export interface Principle {
 }
 
 export interface NavItem {
-  /** 章節錨點 id，如 'arrow'（'＋' 列對應 'materials'） */
+  /** 章節錨點 id，如 'arrow' */
   id: string;
-  /** 側邊導覽編號，如 '01'、'＋' */
+  /** 目錄編號，如 '01' */
   no: string;
   /** 導覽文字，如「箭經（兩支箭）」 */
   label: string;
+}
+
+export interface TocGroup {
+  /** 分組標題，如「開始」「五單元」「收尾」 */
+  heading: string;
+  items: NavItem[];
 }
 
 export interface SiteMeta {
@@ -67,8 +73,8 @@ export interface SiteMeta {
   routeTitle: string;
   /** 聞思修三原則 */
   principles: Principle[];
-  /** 側邊章節導覽 */
-  nav: NavItem[];
+  /** 分組目錄（開始／五單元／收尾） */
+  toc: TocGroup[];
   /** 側邊研習建議小字 */
   studyNote: string;
   /** 頁尾 */
@@ -93,16 +99,32 @@ export const siteMeta: SiteMeta = {
     { label: '思', text: '回到經文，辨清概念與宗派差異' },
     { label: '修', text: '帶回一週，觀察心真正如何反應' },
   ],
-  nav: [
-    { id: 'overview', no: '00', label: '總覽' },
-    { id: 'materials', no: '＋', label: '研習影片' },
-    { id: 'arrow', no: '01', label: '箭經（兩支箭）' },
-    { id: 'heart', no: '02', label: '心經' },
-    { id: 'diamond', no: '03', label: '金剛經' },
-    { id: 'avatamsaka', no: '04', label: '華嚴經' },
-    { id: 'bardo', no: '05', label: '西藏度亡經' },
-    { id: 'compare', no: '06', label: '五經互讀' },
-    { id: 'plan', no: '07', label: '研習節奏' },
+  toc: [
+    {
+      heading: '開始',
+      items: [
+        { id: 'overview', no: '00', label: '總覽' },
+        { id: 'plan', no: '01', label: '研習節奏' },
+        { id: 'materials', no: '02', label: '研習影片' },
+      ],
+    },
+    {
+      heading: '五單元',
+      items: [
+        { id: 'arrow', no: '01', label: '箭經（兩支箭）' },
+        { id: 'heart', no: '02', label: '心經' },
+        { id: 'diamond', no: '03', label: '金剛經' },
+        { id: 'avatamsaka', no: '04', label: '華嚴經' },
+        { id: 'bardo', no: '05', label: '西藏度亡經' },
+      ],
+    },
+    {
+      heading: '收尾',
+      items: [
+        { id: 'compare', no: '06', label: '五經互讀' },
+        { id: 'reading-index', no: '07', label: '延伸閱讀' },
+      ],
+    },
   ],
   studyNote: '建議每部安排 2–4 週。先讀短經或選品，不急著把大部頭從頭讀完；每次只帶走一個可觀察的問題。',
   footer: '研習主線：聞其譬喻，思其義理，修於當下。影片可作入口，不能取代原典。',

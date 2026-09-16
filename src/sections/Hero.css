@@ -1,16 +1,11 @@
 /* ============================================================
-   Hero（DESIGN.md §8.2）— 首屏雙欄 + 建議路徑面板
+   Hero — 首屏：標題＋一句話＋開始研習按鈕
    ============================================================ */
 
 .hero {
   position: relative;
   padding: clamp(3rem, 8vw, 5.5rem) 0 3rem;
   border-bottom: 1px solid var(--line);
-}
-
-.hero__grid {
-  display: grid;
-  gap: var(--s-8);
 }
 
 .hero__eyebrow {
@@ -52,7 +47,7 @@
   font-size: var(--fs-lede);
   line-height: var(--lh-body);
   color: var(--ink-soft);
-  text-align: justify;
+  text-align: left;
 }
 
 /* ---------- 印章：靜態，不做 hover 動畫 ---------- */
@@ -79,89 +74,35 @@
   user-select: none;
 }
 
-/* ---------- 建議路徑面板 ---------- */
-.hero__route {
-  border-top: 4px solid var(--jade);
-  padding-top: var(--s-4);
-  align-self: end;
+/* ---------- 開始研習 CTA ---------- */
+.hero__cta-row {
+  margin-top: var(--s-8);
 }
 
-.hero__route-title {
-  margin: 0 0 var(--s-4);
+.hero__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 52px;
+  padding: 14px 28px;
+  background: var(--cinnabar);
+  color: var(--on-dark);
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 1.1rem;
-  color: var(--ink);
+  font-size: 1.05rem;
+  text-decoration: none;
+  border-radius: 999px;
+  box-shadow: var(--sh-card);
 }
-
-.hero__route-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.hero__cta:hover {
+  background: var(--cinnabar-deep);
+  color: var(--on-dark);
 }
-
-.hero__route-item {
-  display: grid;
-  grid-template-columns: 32px 1fr auto;
-  align-items: center;
-  gap: var(--s-3);
-  padding: var(--s-2) 0;
-  border-bottom: 1px solid var(--line);
-}
-
-.hero__route-item:last-child {
-  border-bottom: none;
-}
-
-.hero__route-no {
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  color: var(--cinnabar);
-}
-
-.hero__route-sutra {
-  font-family: var(--font-display);
-  font-weight: 700;
-  color: var(--ink);
-}
-
-.hero__route-note {
-  font-size: 0.84rem;
-  color: var(--muted);
-}
-
-/* ---------- scroll cue ---------- */
-.hero__cue {
-  position: absolute;
-  left: 50%;
-  bottom: var(--s-4);
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--s-1);
-  color: var(--faint);
-  font-size: var(--fs-tiny);
-  letter-spacing: 0.2em;
-}
-
-.hero__cue-arrow {
-  font-size: 1rem;
-  animation: hero-cue-drop 2.4s var(--ease-out) infinite;
-}
-
-@keyframes hero-cue-drop {
-  0%, 100% { transform: translateY(0); opacity: 0.5; }
-  50% { transform: translateY(6px); opacity: 1; }
+.hero__cta:active {
+  transform: translateY(1px);
 }
 
 @media (min-width: 1024px) {
-  .hero__grid {
-    grid-template-columns: 1.15fr 0.85fr;
-    gap: 4rem;
-    align-items: end;
-  }
-
   .seal {
     width: 84px;
     height: 84px;

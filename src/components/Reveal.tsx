@@ -1,6 +1,7 @@
 /**
- * Reveal — scroll reveal 包裝器（DESIGN.md §6.1 / §6.2）
- * - 標準：opacity 0→1, y 24→0, 0.65s, ease [0.22,1,0.36,1], whileInView once:true
+ * Reveal — scroll reveal 包裝器
+ * - 標準：opacity 0→1, y 12→0, 0.45s, ease [0.22,1,0.36,1], whileInView once:true
+ * - 刻意收斂：長頁面上動畫只做輕提示，不搶戲
  * - 尊重 useReducedMotion()：為 true 時直接渲染終態，不傳位移
  */
 import { motion, useReducedMotion } from 'framer-motion';
@@ -18,7 +19,7 @@ interface RevealProps {
   duration?: number;
 }
 
-export function Reveal({ children, className, y = 24, delay = 0, duration = 0.65 }: RevealProps) {
+export function Reveal({ children, className, y = 12, delay = 0, duration = 0.45 }: RevealProps) {
   const reduce = useReducedMotion();
   if (reduce) {
     return <div className={className}>{children}</div>;
@@ -43,8 +44,8 @@ interface RevealGroupProps {
   delayChildren?: number;
 }
 
-/** Stagger 群組容器（§6.2）：staggerChildren 0.09, delayChildren 0.08 */
-export function RevealGroup({ children, className, stagger = 0.09, delayChildren = 0.08 }: RevealGroupProps) {
+/** Stagger 群組容器：staggerChildren 0.06, delayChildren 0.05 */
+export function RevealGroup({ children, className, stagger = 0.06, delayChildren = 0.05 }: RevealGroupProps) {
   const reduce = useReducedMotion();
   if (reduce) {
     return <div className={className}>{children}</div>;
@@ -71,11 +72,11 @@ interface RevealItemProps {
   y?: number;
 }
 
-/** Stagger 子項（§6.2）：opacity 0→1, y 18→0, 0.55s */
-export function RevealItem({ children, className, y = 18 }: RevealItemProps) {
+/** Stagger 子項：opacity 0→1, y 10→0, 0.4s */
+export function RevealItem({ children, className, y = 10 }: RevealItemProps) {
   const reduce = useReducedMotion();
   const hidden: TargetAndTransition = reduce ? {} : { opacity: 0, y };
-  const show: TargetAndTransition = { opacity: 1, y: 0, transition: { duration: 0.55, ease: EASE } };
+  const show: TargetAndTransition = { opacity: 1, y: 0, transition: { duration: 0.4, ease: EASE } };
   return (
     <motion.div className={className} variants={{ hidden, show }}>
       {children}

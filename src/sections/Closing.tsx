@@ -7,7 +7,7 @@
  */
 import { Reveal, RevealGroup, RevealItem } from '../components/Reveal';
 import { SectionHeading } from '../components/SectionHeading';
-import { crossReading, honestyNote, rhythm, siteMeta, units } from '../data/content';
+import { crossReading, honestyNote, rhythm, units } from '../data/content';
 import './Closing.css';
 
 export function CrossReading() {
@@ -79,9 +79,6 @@ export function Rhythm() {
             <p className="honesty-note__text">{honestyNote.text}</p>
           </aside>
         </Reveal>
-        <a className="back-to-top" href="#top">
-          {siteMeta.backToTop}
-        </a>
       </div>
     </section>
   );

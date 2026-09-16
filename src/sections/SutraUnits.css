@@ -9,6 +9,31 @@
   --clay-warm: #ece3d8;
 }
 
+/* ---------- 0. 單元分隔：鏤空大編號 ---------- */
+.unit-divider {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 0 24px;
+  margin-bottom: var(--s-8);
+}
+.unit-divider::before,
+.unit-divider::after {
+  content: "";
+  flex: 1;
+  height: 2px;
+  background: var(--ink);
+  opacity: 0.85;
+}
+.unit-divider__no {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(2.6rem, 11vw, 4.2rem);
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--cinnabar);
+}
+
 /* ---------- 1. 單元頭：印章 ＋ meta ＋ 經名 ＋ 導言 ---------- */
 .unit-head {
   display: grid;
@@ -54,7 +79,7 @@
   line-height: var(--lh-body);
   color: var(--ink-soft);
   max-width: 52em;
-  text-align: justify;
+  text-align: left;
   margin: 0;
 }
 
@@ -119,6 +144,79 @@
   color: var(--on-dark-dim);
 }
 
+/* ---------- 2. 本單元短片 ---------- */
+.unit-videos {
+  margin: var(--s-8) 0 0;
+  padding: 18px;
+  background: var(--jade-wash);
+  border: 1px solid var(--jade-line);
+  border-radius: var(--r-card);
+}
+.unit-videos__hint {
+  margin: 0 0 12px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--jade-dark);
+}
+.unit-videos__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+.unit-video-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  min-height: 64px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--ink);
+}
+.unit-video-card:hover {
+  border-color: var(--cinnabar);
+}
+.unit-video-card__play {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--cinnabar);
+  color: #fff;
+  font-size: 0.85rem;
+}
+.unit-video-card__body {
+  flex: 1;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  min-width: 0;
+}
+.unit-video-card__no {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--faint);
+  flex: none;
+}
+.unit-video-card__name {
+  font-weight: 700;
+  font-size: 0.98rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.unit-video-card__go {
+  flex: none;
+  color: var(--faint);
+}
+
 /* ---------- 3. QuotePair：原文 / 白話 配對卡（§8.5） ---------- */
 .quote-list {
   display: grid;
@@ -133,6 +231,15 @@
   border-radius: var(--r-card);
   box-shadow: var(--sh-card);
   padding: 20px 22px;
+}
+
+.quote-pair__no {
+  margin: 0 0 var(--s-3);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.3em;
+  color: var(--faint);
 }
 
 .quote-pair__block {
@@ -180,18 +287,35 @@
 }
 
 /* 深入理解 inset */
+/* 深入理解：收合開關 */
+.quote-pair__insights-wrap {
+  margin-top: var(--s-4);
+}
+.insights-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 8px 2px;
+  background: none;
+  border: none;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--cinnabar);
+  cursor: pointer;
+}
+.insights-toggle:hover {
+  color: var(--cinnabar-deep);
+}
+.insights-toggle__mark {
+  font-size: 0.95rem;
+}
 .quote-pair__insights {
   background: var(--paper-deep);
   padding: 14px 16px;
-  margin-top: var(--s-4);
-}
-
-.quote-pair__insights-eyebrow {
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  color: var(--cinnabar);
-  margin: 0 0 var(--s-2);
+  margin-top: 4px;
 }
 
 .quote-pair__insight {
@@ -383,4 +507,37 @@
   .quote-pair {
     padding: 18px 16px;
   }
+}
+
+/* ---------- 8. 下一單元銜接 ---------- */
+.unit-next {
+  margin-top: var(--s-10);
+  border-top: 1px solid var(--line);
+  padding-top: var(--s-6);
+}
+.unit-next__link {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 20px 22px;
+  min-height: 64px;
+  background: var(--jade-dark);
+  color: var(--on-dark);
+  border-radius: var(--r-card);
+  text-decoration: none;
+}
+.unit-next__link:hover {
+  color: var(--on-dark);
+  background: var(--jade-ink);
+}
+.unit-next__kicker {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: var(--on-dark-dim);
+}
+.unit-next__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.25rem;
 }

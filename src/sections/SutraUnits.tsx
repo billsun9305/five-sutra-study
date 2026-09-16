@@ -1,20 +1,26 @@
 /**
- * SutraUnits — 五個經單元（DESIGN.md §8.6）
- * 錨點 id 固定：arrow / heart / diamond / avatamsaka / bardo（StickyNav 捲動偵測依賴）
+ * SutraUnits — 五個經單元
+ * 錨點 id 固定：arrow / heart / diamond / avatamsaka / bardo（scroll-spy 依賴）
  * 內容全部取自 content.ts，逐字渲染，絕不改寫白話與原文。
+ *
+ * 版式：單元頂部先放本單元短片（先看片再讀文）→ 導讀 →
+ * 引文 → 經文對照（深入理解預設收合）→ 實修 → 角度 → 書目 →
+ * 「下一單元」銜接。
  */
+import { useState } from 'react';
 import {
   units,
   BAIHUA_LABEL,
   INSIGHTS_LABEL,
   ANGLES_HEADING,
+  materialsPack,
 } from '../data/content';
 import type { SutraUnit, Quote, Insight } from '../data/content';
 import { SectionHeading } from '../components/SectionHeading';
 import { Reveal, RevealGroup, RevealItem } from '../components/Reveal';
 import './SutraUnits.css';
 
-/** 由網址推斷外部連結的 aria-label 目的地註記（DESIGN §10） */
+/** 由網址推斷外部連結的 aria-label 目的地註記 */
 function linkDestination(url: string): string {
   try {
     const u = new URL(url);
@@ -35,25 +41,82 @@ function linkDestination(url: string): string {
   }
 }
 
-/** 深入理解註解 */
-function Insights({ items }: { items: Insight[] }) {
+/** 本單元短片：先看片，再讀經文 */
+function UnitVideos({ unitId }: { unitId: string }) {
+  const reels = materialsPack.reels.filter((r) => r.unitId === unitId);
+  if (reels.length === 0) return null;
   return (
-    <aside className="quote-pair__insights" aria-label={INSIGHTS_LABEL}>
-      <p className="quote-pair__insights-eyebrow">{INSIGHTS_LABEL}</p>
-      {items.map((insight, i) => (
-        <p key={i} className="quote-pair__insight">
-          <strong>{insight.title}</strong>
-          {insight.body}
-        </p>
-      ))}
-    </aside>
+    <Reveal className="unit-videos" y={12}>
+      <p className="unit-videos__hint">先看短片，再讀經文</p>
+      <ul className="unit-videos__list">
+        {reels.map((reel) => (
+          <li key={reel.url}>
+            <a
+              className="unit-video-card"
+              href={reel.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${reel.videoAriaLabel}（外部連結）`}
+            >
+              <span className="unit-video-card__play" aria-hidden="true">
+                ▶
+              </span>
+              <span className="unit-video-card__body">
+                <span className="unit-video-card__no" aria-hidden="true">
+                  {reel.unitNo}
+                </span>
+                <span className="unit-video-card__name">{reel.videoLabel}</span>
+              </span>
+              <span className="unit-video-card__go" aria-hidden="true">
+                ↗
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </Reveal>
   );
 }
 
-/** 原文 / 白話 配對卡（DESIGN §8.5） */
-function QuotePair({ quote }: { quote: Quote }) {
+/** 深入理解：預設收合，點開看 */
+function Insights({ items }: { items: Insight[] }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="quote-pair__insights-wrap">
+      <button
+        type="button"
+        className="insights-toggle"
+        aria-expanded={open}
+        onClick={() => setOpen((v) => !v)}
+      >
+        {INSIGHTS_LABEL}
+        <span className="insights-toggle__mark" aria-hidden="true">
+          {open ? '－' : '＋'}
+        </span>
+      </button>
+      {open && (
+        <aside className="quote-pair__insights" aria-label={INSIGHTS_LABEL}>
+          {items.map((insight, i) => (
+            <p key={i} className="quote-pair__insight">
+              <strong>{insight.title}</strong>
+              {insight.body}
+            </p>
+          ))}
+        </aside>
+      )}
+    </div>
+  );
+}
+
+const QUOTE_NOS = ['其一', '其二', '其三', '其四', '其五', '其六', '其七', '其八'];
+
+/** 原文 / 白話 配對卡 */
+function QuotePair({ quote, index }: { quote: Quote; index: number }) {
   return (
     <article className="quote-pair">
+      <p className="quote-pair__no" aria-hidden="true">
+        {QUOTE_NOS[index] ?? `其${index + 1}`}
+      </p>
       <div className="quote-pair__block">
         <span className="quote-pair__label quote-pair__label--original">
           {quote.label}
@@ -74,7 +137,7 @@ function QuotePair({ quote }: { quote: Quote }) {
   );
 }
 
-/** 練習雙卡（DESIGN §8.6 #4）：本週練習＋生活檢驗／影片譬喻／閱讀邊界 */
+/** 練習雙卡：本週練習＋生活檢驗／影片譬喻／閱讀邊界 */
 function PracticeDuo({ unit }: { unit: SutraUnit }) {
   return (
     <Reveal className="unit-practice-duo">
@@ -95,14 +158,24 @@ function PracticeDuo({ unit }: { unit: SutraUnit }) {
   );
 }
 
+interface NextStop {
+  id: string;
+  label: string;
+}
+
 /** 單一經單元 */
-function UnitSection({ unit }: { unit: SutraUnit }) {
+function UnitSection({ unit, next }: { unit: SutraUnit; next: NextStop }) {
   return (
     <section
       id={unit.id}
       className="section unit-section"
       aria-labelledby={`${unit.id}-heading`}
     >
+      {/* 單元分隔：鏤空大編號 */}
+      <div className="unit-divider" aria-hidden="true">
+        <span className="unit-divider__no">{unit.number}</span>
+      </div>
+
       <div className="container">
         <SectionHeading
           eyebrow={`${unit.number} · ${unit.title}`}
@@ -110,7 +183,9 @@ function UnitSection({ unit }: { unit: SutraUnit }) {
           headingId={`${unit.id}-heading`}
         />
 
-        {/* 單元頭：印章（.seal 取自 Hero.css，靜態無 hover）＋ meta 標籤＋經名＋導言 */}
+        <UnitVideos unitId={unit.id} />
+
+        {/* 單元頭：印章＋ meta 標籤＋經名＋導言 */}
         <Reveal className="unit-head">
           <span className="seal unit-head__seal" aria-hidden="true">
             {unit.seal}
@@ -135,7 +210,7 @@ function UnitSection({ unit }: { unit: SutraUnit }) {
           </Reveal>
         )}
 
-        {/* 引文塊（深底只做淡入，§6.1） */}
+        {/* 引文塊（深底只做淡入） */}
         <Reveal y={12} className="unit-epigraph">
           <blockquote className="unit-epigraph__quote">
             <span className="unit-epigraph__mark" aria-hidden="true">
@@ -152,12 +227,12 @@ function UnitSection({ unit }: { unit: SutraUnit }) {
         <RevealGroup className="quote-list">
           {unit.quotes.map((quote, i) => (
             <RevealItem key={i}>
-              <QuotePair quote={quote} />
+              <QuotePair quote={quote} index={i} />
             </RevealItem>
           ))}
         </RevealGroup>
 
-        {/* 本週實修 callout（§8.4 樣式：紙深底＋玉色頂線） */}
+        {/* 本週實修 callout */}
         <Reveal className="unit-practice-weekly">
           <p>
             <strong className="unit-practice-weekly__lead">本週實修｜</strong>
@@ -209,7 +284,7 @@ function UnitSection({ unit }: { unit: SutraUnit }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`${source.title}（${linkDestination(
-                    source.url
+                    source.url,
                   )}，外部連結）`}
                 >
                   {source.title}
@@ -218,16 +293,34 @@ function UnitSection({ unit }: { unit: SutraUnit }) {
             ))}
           </p>
         </Reveal>
+
+        {/* 下一單元銜接 */}
+        <nav className="unit-next" aria-label="繼續研讀">
+          <a className="unit-next__link" href={`#${next.id}`}>
+            <span className="unit-next__kicker">繼續研讀</span>
+            <span className="unit-next__title">
+              {next.label}
+              <span aria-hidden="true"> →</span>
+            </span>
+          </a>
+        </nav>
       </div>
     </section>
   );
 }
 
 export default function SutraUnits() {
+  const stops: NextStop[] = [
+    ...units.map((u) => ({
+      id: u.id,
+      label: `《${u.title}》・${u.theme}`,
+    })),
+    { id: 'compare', label: '五經互讀' },
+  ];
   return (
     <>
-      {units.map((unit) => (
-        <UnitSection key={unit.id} unit={unit} />
+      {units.map((unit, i) => (
+        <UnitSection key={unit.id} unit={unit} next={stops[i + 1]} />
       ))}
     </>
   );
